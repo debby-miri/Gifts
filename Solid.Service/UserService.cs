@@ -9,6 +9,5 @@ namespace Solid.Service
 {
     public class UserService:IUserService
     {
-        fgfhfghffghfgh
     }
 }
