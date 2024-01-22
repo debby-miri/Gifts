@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Solid.Service
 {
-    public class UserService
+    public class GiftService
     {
-        fgfhfghffghfgh
     }
 }
