@@ -8,6 +8,5 @@ namespace Solid.Service
 {
     public class UserService
     {
-        fgfhfghffghfgh
     }
 }
