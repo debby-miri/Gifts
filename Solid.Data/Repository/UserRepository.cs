@@ -81,5 +81,47 @@ namespace Solid.Data.Repository
             await _context.SaveChangesAsync();
             return user1;
         }
+
+        public async Task<string> BlockUser(int id)
+        {
+            foreach (var item in _context.Users)
+            {
+                if (item.UserId == id)
+                {
+                    item.Status = 2;
+                    item.DateOfStatusChange = DateTime.Now;
+                }
+            }
+            await _context.SaveChangesAsync();
+            return "blocked";
+        }
+
+        public async Task<string> SuspendUser(int id)
+        {
+            foreach (var item in _context.Users)
+            {
+                if (item.UserId == id)
+                {
+                    item.Status = 0;
+                    item.DateOfStatusChange = DateTime.Now;
+                }
+            }
+            await _context.SaveChangesAsync();
+            return "suspended";
+        }
+
+        public async Task<string> UnSuspendUser(int id)
+        {
+            foreach (var item in _context.Users)
+            {
+                if (item.UserId == id)
+                {
+                    item.Status = 1;
+                    item.DateOfStatusChange = DateTime.Now;
+                }
+            }
+            await _context.SaveChangesAsync();
+            return "Unsuspended";
+        }
     }
 }

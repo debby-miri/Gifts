@@ -58,6 +58,24 @@ namespace Solid.API.Controllers
             var res= await _userService.SignIn(new User { Mail=user.Mail ,Password=user.Password});
             if (res is null)
                 return StatusCode(400);
+            if (res.Status == 0)
+            {
+
+                int totalDays = (int)(DateTime.Now - res.DateOfStatusChange).TotalDays;
+                if (totalDays > 7)
+                {
+                    Console.WriteLine( await _userService.UnSuspendUser(res.UserId));
+                }
+                else
+                {
+                    return StatusCode(300);
+                }
+                
+            }
+            if(res.Status == 2)
+            {
+                return StatusCode(301);
+            }
             return res;
         }
         [HttpPost("signUp")]

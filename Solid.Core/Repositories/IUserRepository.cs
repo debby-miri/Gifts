@@ -19,5 +19,10 @@ namespace Solid.Core.Repositories
         Task<User> UpdateAsync(int id,User user);
 
         Task DeleteAsync(int id);
+        //לחסום
+        Task<string> BlockUser(int id);
+        //להשהות
+        Task<string> SuspendUser(int id);
+        Task<string> UnSuspendUser(int id);
     }
 }

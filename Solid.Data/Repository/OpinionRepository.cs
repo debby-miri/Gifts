@@ -22,5 +22,6 @@ namespace Solid.Data.Repository
             await _context.SaveChangesAsync();
             return opinion;
         }
+    
     }
 }

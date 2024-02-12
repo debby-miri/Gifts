@@ -47,7 +47,12 @@ namespace Solid.Service
             int count = 0;
             foreach (var item in gifts)
             {
-                count += item.OpinionsList.Count();
+                foreach (var op in item.OpinionsList)
+                {
+                    if(!op.PositiveOpinion)
+                        count++;
+                }
+               
             }
             return count;
         }
@@ -79,6 +84,19 @@ namespace Solid.Service
             return _mapper.Map<UserDTO>(await _repository.UpdateAsync(id, user));
         }
 
+        public async Task<string> BlockUser(int id)
+        {
+            return await _repository.BlockUser(id);
+        }
 
+        public async Task<string> SuspendUser(int id)
+        {
+            return await _repository.SuspendUser(id);
+        }
+
+        public async Task<string> UnSuspendUser(int id)
+        {
+            return await _repository.UnSuspendUser(id);
+        }
     }
 }
