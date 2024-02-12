@@ -16,7 +16,8 @@ namespace Solid.Core.Services
 
         Task<UserDTO> GetByIdAsync(int id);
 
-        Task<UserDTO> AddAsync(User user);
+        Task<UserDTO> SignIn(User user);
+        Task<UserDTO> SignUp(User user);
 
         Task<UserDTO> UpdateAsync(int id,User user);
 

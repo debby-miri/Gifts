@@ -19,7 +19,9 @@ namespace Gifts
         public string Phon { get; set; }
 
         public string Mail { get; set; }
-
+        //פעיל 1
+        //מושהה 0
+        //חסום 2
         public int Status { get; set; }
 
         public DateTime DateOfStatusChange { get; set; }

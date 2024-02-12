@@ -21,9 +21,13 @@ namespace Solid.Service
             _mapper = mapper;
         }
 
-        public async Task<UserDTO> AddAsync(User user)
+        public async Task<UserDTO> SignIn(User user)
         {
-            return _mapper.Map<UserDTO>(await _repository.AddAsync(user));
+            return _mapper.Map<UserDTO>(await _repository.SignIn(user));
+        }
+        public async Task<UserDTO> SignUp(User user)
+        {
+            return _mapper.Map<UserDTO>(await _repository.SignUp(user));
         }
 
         public async Task DeleteAsync(int id)
@@ -70,11 +74,11 @@ namespace Solid.Service
             return giftDTOs;
         }
 
-        public async Task<UserDTO> UpdateAsync(int id,User user)
+        public async Task<UserDTO> UpdateAsync(int id, User user)
         {
-            return _mapper.Map<UserDTO>(await _repository.UpdateAsync(id,user));
+            return _mapper.Map<UserDTO>(await _repository.UpdateAsync(id, user));
         }
 
-   
+
     }
 }

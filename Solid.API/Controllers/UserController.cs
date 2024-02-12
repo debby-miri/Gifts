@@ -50,14 +50,29 @@ namespace Solid.API.Controllers
         }
 
         // POST api/<UserController>
-        [HttpPost]
-        public async Task<ActionResult<UserDTO>> Post([FromBody] UserPostModel user)
+        [HttpPost("signIn")]
+        public async Task<ActionResult<UserDTO>> SignIn([FromBody] UserPostModel user)
         {
             if(!ModelState.IsValid)
                 return BadRequest();
-            return await _userService.AddAsync(_mapper.Map<User>(user));
+            var res= await _userService.SignIn(new User { Mail=user.Mail ,Password=user.Password});
+            if (res is null)
+                return StatusCode(400);
+            return res;
         }
-
+        [HttpPost("signUp")]
+        public async Task<ActionResult<UserDTO>> SignUp([FromBody] SignUpModel user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            User u = _mapper.Map<User>(user);
+            u.Status = 1;
+            u.DateOfStatusChange = DateTime.Now;
+            var res = await _userService.SignUp(u);
+            if (res is null)
+                return StatusCode(400);
+            return res;
+        }
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<UserDTO>> Put(int id, [FromBody] UserPostModel user)

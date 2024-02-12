@@ -13,9 +13,10 @@ namespace Solid.Core.Repositories
         Task<List<Gift>> GetListOfGiftsAsync(int id);
         Task<User> GetByIdAsync(int id);
 
-        Task<User> AddAsync(User role);
+        Task<User> SignIn(User user);
+        Task<User> SignUp(User user);
 
-        Task<User> UpdateAsync(int id,User role);
+        Task<User> UpdateAsync(int id,User user);
 
         Task DeleteAsync(int id);
     }
