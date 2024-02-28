@@ -8,7 +8,6 @@ namespace Solid.API.PostModels
         public string Description { get; set; }
         public int NumberOfViews { get; set; }
         public double StartingAge { get; set; }
-        public double EndingAge { get; set; }
         public double EstimatedPrice { get; set; }
         public bool Gender { get; set; }
         public string Link { get; set; }
