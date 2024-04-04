@@ -13,6 +13,7 @@ namespace Gifts
         public int OpinionId { get; set; }
         public string Description { get; set; }
         public bool PositiveOpinion { get; set; }
+        public int GiftId { get; set; }
         public Gift Gift { get; set; }
 
     }

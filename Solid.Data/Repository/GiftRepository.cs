@@ -18,7 +18,8 @@ namespace Solid.Data.Repository
         }
         public async Task<Gift> AddAsync(Gift gift)
         {
-            await _context.Gifts.AddAsync(gift);
+            _context.Gifts.Add(gift);
+            await _context.SaveChangesAsync();
             return gift;
         }
 

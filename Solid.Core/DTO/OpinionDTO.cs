@@ -11,5 +11,6 @@ namespace Solid.Core.DTO
         public int OpinionId { get; set; }
         public string Description { get; set; }
         public bool PositiveOpinion { get; set; }
+        public int GiftId { get; set; }
     }
 }

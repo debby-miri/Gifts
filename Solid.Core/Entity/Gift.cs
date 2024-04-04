@@ -27,6 +27,7 @@ namespace Gifts
         public EEvents Events { get; set; }
         public ECategory Categry { get; set; }
         public ICollection<Opinion> OpinionsList { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 }

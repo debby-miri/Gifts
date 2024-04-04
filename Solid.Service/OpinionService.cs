@@ -15,19 +15,21 @@ namespace Solid.Service
     {
         private readonly IOpinionRepository _repository;
         private readonly IUserService _userService;
+        private readonly IGiftService _giftService;
         private readonly IMapper _mapper;
-        public OpinionService(IOpinionRepository repository, IMapper mapper, IUserService userService)
+        public OpinionService(IOpinionRepository repository, IMapper mapper, IUserService userService,IGiftService giftService)
         {
             _repository = repository;
             _mapper = mapper;
             _userService = userService;
+            _giftService = giftService;
         }
         public async Task<OpinionDTO> AddOpinion(Opinion opinion)
         {
 
             Opinion res= await _repository.AddOpinion(opinion);
-            int UserId = res.Gift.User.UserId;
-
+          GiftDTO gift=await _giftService.GetByIdAsync(res.GiftId);
+            int UserId = gift.UserId;
             ///למחוק מתנה
             int count =await _userService.GetCountOfOpinionsAsync(UserId);
             if (count >= 10)

@@ -23,5 +23,6 @@ namespace Solid.Core.DTO
         public EEvents Events { get; set; }
         public ECategory Categry { get; set; }
         public ICollection<Opinion> OpinionsList { get; set; }
+        public int UserId { get; set; }
     }
 }
