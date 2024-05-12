@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Gifts
 {
     public enum EEvents {EVERY,BIRTHDAY,WEDDING,BAR_MITZVA,BAT_MITZVA,WEDDING_DATE,BRIT,AWARD}
-    public enum ECategory {EVERY,HOME,STUDY,DESIGN,GARDEN,VOCATION }
+    public enum ECategory {EVERY,HOME,STUDY,DESIGN,GARDEN,VOCATION, jewelry }
 
     public class Gift
     {

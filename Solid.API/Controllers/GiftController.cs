@@ -53,12 +53,12 @@ namespace Solid.API.Controllers
             var res = await _service.AddAsync(_mapper.Map<Gift>(g));
             return res;
         }
-/*
-        // PUT api/<GiftController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }*/
+        /*
+                // PUT api/<GiftController>/5
+                [HttpPut("{id}")]
+                public void Put(int id, [FromBody] string value)
+                {
+                }*/
         // DELETE api/<GiftController>/5
         [HttpDelete("{id}")]
         public async void Delete(int id)
@@ -66,4 +66,5 @@ namespace Solid.API.Controllers
             await _service.DeleteAsync(id);
         }
     }
+    
 }

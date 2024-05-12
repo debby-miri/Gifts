@@ -47,12 +47,13 @@ namespace Solid.Service
             int count = 0;
             foreach (var item in gifts)
             {
-                foreach (var op in item.OpinionsList)
-                {
-                    if(!op.PositiveOpinion)
-                        count++;
-                }
-               
+                if (item.OpinionsList != null)
+                    foreach (var op in item.OpinionsList)
+                    {
+                        if (!op.PositiveOpinion)
+                            count++;
+                    }
+
             }
             return count;
         }

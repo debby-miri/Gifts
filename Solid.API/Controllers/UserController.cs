@@ -48,7 +48,7 @@ namespace Solid.API.Controllers
             }
             return User;
         }
-
+        //enter after there is an acount
         // POST api/<UserController>
         [HttpPost("signIn")]
         public async Task<ActionResult<UserDTO>> SignIn([FromBody] UserPostModel user)
@@ -60,6 +60,9 @@ namespace Solid.API.Controllers
                 return StatusCode(400);
             if (res.Status == 0)
             {
+                //פעיל 1
+                //מושהה 0
+                //חסום 2
 
                 int totalDays = (int)(DateTime.Now - res.DateOfStatusChange).TotalDays;
                 if (totalDays > 7)
@@ -78,6 +81,7 @@ namespace Solid.API.Controllers
             }
             return res;
         }
+        //login
         [HttpPost("signUp")]
         public async Task<ActionResult<UserDTO>> SignUp([FromBody] SignUpModel user)
         {
