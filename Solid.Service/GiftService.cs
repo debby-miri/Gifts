@@ -2,6 +2,7 @@
 using AutoMapper;
 using Gifts;
 using Solid.Core.DTO;
+using Solid.Core.Entity;
 using Solid.Core.Repositories;
 using Solid.Core.Services;
 using System;
@@ -38,7 +39,7 @@ namespace Solid.Service
             return _mapper.Map<GiftDTO>(await _repository.GetByIdAsync(id));
         }
 
-        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0, bool Gender = false, EEvents Events = 0, ECategory Categry = 0)
+        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0, int Gender1 = 0, int Events = 0, int Categry = 0)
         {
             List<GiftDTO> helping = new List<GiftDTO>();
             List<GiftDTO> giftDTOs = new List<GiftDTO>();
@@ -49,7 +50,7 @@ namespace Solid.Service
             }
             foreach (var item in giftDTOs)
             {
-                if (/*item.EndingAge>=Age&&*/item.Gender == Gender && (Events == 0 || Events == item.Events) && (Categry == 0 || Categry == item.Categry))
+                if (/*item.EndingAge>=Age&&*/(Gender1 == 0||item.Gender.GenderId == Gender1 )&& (Events == 0 || Events == item.Events.EventsId) && (Categry == 0 || Categry == item.Categry.CategryId))
                     helping.Add(item);
             }
             giftDTOs = helping;

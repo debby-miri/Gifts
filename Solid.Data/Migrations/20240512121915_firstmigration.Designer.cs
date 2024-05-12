@@ -12,8 +12,8 @@ using Solid.Data;
 namespace Solid.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240207123203_notreq")]
-    partial class notreq
+    [Migration("20240512121915_firstmigration")]
+    partial class firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Solid.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GiftId"));
 
-                    b.Property<int>("Categry")
+                    b.Property<int>("CategryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfEntry")
@@ -49,11 +49,11 @@ namespace Solid.Data.Migrations
                     b.Property<double>("EstimatedPrice")
                         .HasColumnType("float");
 
-                    b.Property<int>("Events")
+                    b.Property<int>("EventsId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Gender")
-                        .HasColumnType("bit");
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
@@ -77,6 +77,12 @@ namespace Solid.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("GiftId");
+
+                    b.HasIndex("CategryId");
+
+                    b.HasIndex("EventsId");
+
+                    b.HasIndex("GenderId");
 
                     b.HasIndex("UserId");
 
@@ -147,13 +153,88 @@ namespace Solid.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Solid.Core.Entity.Categry", b =>
+                {
+                    b.Property<int>("CategryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategryId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CategryId");
+
+                    b.ToTable("Categrys");
+                });
+
+            modelBuilder.Entity("Solid.Core.Entity.Events1", b =>
+                {
+                    b.Property<int>("EventsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventsId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventsId");
+
+                    b.ToTable("Events11");
+                });
+
+            modelBuilder.Entity("Solid.Core.Entity.Gender", b =>
+                {
+                    b.Property<int>("GenderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenderId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GenderId");
+
+                    b.ToTable("Genders");
+                });
+
             modelBuilder.Entity("Gifts.Gift", b =>
                 {
+                    b.HasOne("Solid.Core.Entity.Categry", "Categry")
+                        .WithMany()
+                        .HasForeignKey("CategryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Solid.Core.Entity.Events1", "Events")
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Solid.Core.Entity.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Gifts.User", "User")
                         .WithMany("GiftsList")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Categry");
+
+                    b.Navigation("Events");
+
+                    b.Navigation("Gender");
 
                     b.Navigation("User");
                 });

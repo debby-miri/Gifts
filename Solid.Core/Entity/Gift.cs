@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Solid.Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Gifts
 {
-    public enum EEvents {EVERY,BIRTHDAY,WEDDING,BAR_MITZVA,BAT_MITZVA,WEDDING_DATE,BRIT,AWARD}
-    public enum ECategory {EVERY,HOME,STUDY,DESIGN,GARDEN,VOCATION, jewelry }
+/*    public enum EEvents {EVERY,BIRTHDAY,WEDDING,BAR_MITZVA,BAT_MITZVA,WEDDING_DATE,BRIT,AWARD}
+    public enum ECategory {EVERY,HOME,STUDY,DESIGN,GARDEN,VOCATION, jewelry }*/
 
     public class Gift
     {
@@ -20,12 +21,12 @@ namespace Gifts
         public double StartingAge { get; set; }
         public double EndingAge { get; set;}
         public double EstimatedPrice { get; set; }
-        public bool Gender { get; set; }
+        public Gender Gender { get; set; }
         public string Link { get; set; }
         public DateTime DateOfEntry { get; set; }
         public string ImageUrl { get; set; }
-        public EEvents Events { get; set; }
-        public ECategory Categry { get; set; }
+        public Events1 Events { get; set; }
+        public Categry Categry { get; set; }
         public ICollection<Opinion> OpinionsList { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }

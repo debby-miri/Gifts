@@ -17,9 +17,9 @@ namespace Solid.Core
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Gift, GiftDTO>().ReverseMap();
             CreateMap<Opinion, OpinionDTO>().ReverseMap();
-            CreateMap<Gender, OpinionDTO>().ReverseMap();
-            CreateMap<Events1, OpinionDTO>().ReverseMap();
-            CreateMap<Categry, OpinionDTO>().ReverseMap();
+            CreateMap<Gender, GenderDTO>().ReverseMap();
+            CreateMap<Events1, EventsDTO>().ReverseMap();
+            CreateMap<Categry, CategryDTO>().ReverseMap();
         }
     }
 }

@@ -1,16 +1,15 @@
-﻿using Solid.Core.Entity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Solid.Core.DTO;
+using Solid.Core.Entity;
 
 namespace Solid.Core.Services
 {
     public interface IGenderEventsCategryService
     {
-        Task<List<Gender>> GetGendersAsync();
-        Task<List<Events1>> GetEvents1Async();
-        Task<List<Categry>> GetCategriesAsync();
+        Task<List<GenderDTO>> GetGendersAsync();
+        Task<List<EventsDTO>> GetEvents1Async();
+        Task<List<CategryDTO>> GetCategriesAsync();
+        Task<GenderDTO> AddGender(Gender gender);
+        Task<EventsDTO> AddEvents(Events1 event1);
+        Task<CategryDTO> AddCategry(Categry categry);
     }
 }

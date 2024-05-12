@@ -12,5 +12,8 @@ namespace Solid.Core.Repositories
         Task<List<Gender>> GetGendersAsync();
         Task<List<Events1>> GetEvents1Async();
         Task<List<Categry>> GetCategriesAsync();
+        Task<Gender> AddGender(Gender gender);
+        Task<Events1> AddEvents(Events1 event1);
+        Task<Categry> AddCategry(Categry categry);
     }
 }

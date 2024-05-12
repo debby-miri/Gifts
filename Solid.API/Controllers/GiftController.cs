@@ -3,6 +3,7 @@ using Gifts;
 using Microsoft.AspNetCore.Mvc;
 using Solid.API.PostModels;
 using Solid.Core.DTO;
+using Solid.Core.Entity;
 using Solid.Core.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -23,11 +24,11 @@ namespace Solid.API.Controllers
         }
 
         [HttpGet("filter")]
-        public async Task<List<GiftDTO>> GetFilteredGifts([FromQuery][SwaggerParameter(Required = false)] double? Age, [FromQuery][SwaggerParameter(Required = false)] double? EstimatedPrice, [FromQuery][SwaggerParameter(Required = false)] bool? Gender, [FromQuery][SwaggerParameter(Required = false)] EEvents? Events, [FromQuery][SwaggerParameter(Required = false)] ECategory? Categry)
+        public async Task<List<GiftDTO>> GetFilteredGifts([FromQuery][SwaggerParameter(Required = false)] double? Age, [FromQuery][SwaggerParameter(Required = false)] double? EstimatedPrice, [FromQuery][SwaggerParameter(Required = false)] int? Gender, [FromQuery][SwaggerParameter(Required = false)] int? Events, [FromQuery][SwaggerParameter(Required = false)] int? Categry)
         {
             double Age2 = Age == null ? -1 : (double)Age;
             double ep = EstimatedPrice == null ? -1 : (double)EstimatedPrice;
-            return await _service.GetFilteredGifts(Age2, ep, Gender == null ? false : (bool)Gender, Events == null ? 0 : (EEvents)Events, Categry == null ? 0 : (ECategory)Categry);
+            return await _service.GetFilteredGifts(Age2, ep, Gender == null ? 0 : (int)Gender, Events == null ? 0 : (int)Events, Categry == null ? 0 : (int)Categry);
         }
         // GET: api/<GiftController>
         [HttpGet]

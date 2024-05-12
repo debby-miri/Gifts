@@ -1,4 +1,5 @@
 ﻿using Gifts;
+using Solid.Core.Entity;
 
 namespace Solid.API.PostModels
 {
@@ -14,11 +15,11 @@ namespace Solid.API.PostModels
         public double StartingAge { get; set; }        
         public double EndingAge { get; set; }
         public double EstimatedPrice { get; set; }
-        public bool Gender { get; set; }
+        public int Gender { get; set; }
         public string Link { get; set; }
         public string ImageUrl { get; set; }
-        public EEvents Events { get; set; }
-        public ECategory Categry { get; set; }        
+        public int Events { get; set; }
+        public int Categry { get; set; }        
         public int UserId { get; set; }
 
     }
