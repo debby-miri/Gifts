@@ -19,5 +19,6 @@ namespace Solid.Core.DTO
         public DateTime DateOfStatusChange { get; set; }
         public string Password { get; set; }
         public ICollection<Gift> GiftsList { get; set; }
+
     }
 }

@@ -19,21 +19,16 @@ namespace Solid.Data.Repository
         }
         public async Task<User> SignIn(User user)
         {
-            foreach (var u in _context.Users)
-            {
-                if ( u.Password == user.Password&&u.Mail==user.Mail)
-                    return u;
-            }
-        
-            return null;
+            return _context.Users.FirstOrDefault(u => u.Password == user.Password && u.Mail == user.Mail);
+
+
         }
         public async Task<User> SignUp(User user)
         {
-            foreach (var u in _context.Users)
+            if (_context.Users.Any(u => u.Mail == user.Mail))
             {
-                if (u.Password == user.Password && u.Mail == user.Mail)
-                    return null;
-            }   
+                return null;
+            }
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user;
@@ -43,6 +38,7 @@ namespace Solid.Data.Repository
         {
             var user = await GetByIdAsync(id);
             _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User> GetByIdAsync(int id)
@@ -53,7 +49,7 @@ namespace Solid.Data.Repository
 
         public async Task<List<User>> GetListAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(u => u.GiftsList).ToListAsync();
         }
 
         public async Task<List<Gift>> GetListOfGiftsAsync(int id)
@@ -63,20 +59,15 @@ namespace Solid.Data.Repository
 
         public async Task<User> UpdateAsync(int id, User user)
         {
-            User user1 = null;
 
-            foreach (var item in _context.Users)
+            User user1 = _context.Users.FirstOrDefault(x => x.UserId == id);
+            if (user1 != null)
             {
-                if (item.UserId == id)
-                {
-                    item.FirstName = user.FirstName;
-                    item.LastName = user.LastName;
-                    item.Password = user.Password;
-                    item.Phon = user.Phon;
-                    item.Mail = user.Mail;
-                    user1 = item;
-                }
-
+                user1.FirstName = user.FirstName;
+                user1.LastName = user.LastName;
+                user1.Password = user.Password;
+                user1.Phon = user.Phon;
+                user1.Mail = user.Mail;
             }
             await _context.SaveChangesAsync();
             return user1;
@@ -84,42 +75,27 @@ namespace Solid.Data.Repository
 
         public async Task<string> BlockUser(int id)
         {
-            foreach (var item in _context.Users)
-            {
-                if (item.UserId == id)
-                {
-                    item.Status = 2;
-                    item.DateOfStatusChange = DateTime.Now;
-                }
-            }
+            var item = await GetByIdAsync(id);
+            item.Status = 2;
+            item.DateOfStatusChange = DateTime.Now;
             await _context.SaveChangesAsync();
             return "blocked";
         }
 
         public async Task<string> SuspendUser(int id)
         {
-            foreach (var item in _context.Users)
-            {
-                if (item.UserId == id)
-                {
-                    item.Status = 0;
-                    item.DateOfStatusChange = DateTime.Now;
-                }
-            }
+            var item = await GetByIdAsync(id);
+            item.Status = 0;
+            item.DateOfStatusChange = DateTime.Now;
             await _context.SaveChangesAsync();
             return "suspended";
         }
 
         public async Task<string> UnSuspendUser(int id)
         {
-            foreach (var item in _context.Users)
-            {
-                if (item.UserId == id)
-                {
-                    item.Status = 1;
-                    item.DateOfStatusChange = DateTime.Now;
-                }
-            }
+            var item = await GetByIdAsync(id);
+            item.Status = 1;
+            item.DateOfStatusChange = DateTime.Now;
             await _context.SaveChangesAsync();
             return "Unsuspended";
         }

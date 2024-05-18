@@ -12,7 +12,7 @@ namespace Solid.Core.Services
     {
         Task<List<UserDTO>> GetListAsync();
         Task<List<GiftDTO>> GetListOfGiftsAsync(int id);
-        Task<int> GetCountOfOpinionsAsync(int id);
+        Task<int[]> GetCountOfOpinionsAsync(int id);
 
         Task<UserDTO> GetByIdAsync(int id);
 

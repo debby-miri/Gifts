@@ -31,14 +31,14 @@ namespace Solid.Service
           GiftDTO gift=await _giftService.GetByIdAsync(res.GiftId);
             int UserId = gift.UserId;
             ///למחוק מתנה
-            int count =await _userService.GetCountOfOpinionsAsync(UserId);
-            if (count >= 10)
+            int[] op =await _userService.GetCountOfOpinionsAsync(UserId);
+            if (op[1] >= 10 && op[1] / op[0] > 0.4)
             {
                 Console.WriteLine(await _userService.BlockUser(UserId));
             }
             else
             {
-                if (count >= 5)
+                if (op[1] >= 5 && op[1] / op[0]>0.25)
                 {
                     Console.WriteLine(await _userService.SuspendUser(UserId));
                 }

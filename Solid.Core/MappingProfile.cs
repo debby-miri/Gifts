@@ -15,7 +15,11 @@ namespace Solid.Core
         public MappingProfile() 
         {
             CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<Gift, GiftDTO>().ReverseMap();
+            CreateMap<Gift, GiftDTO>()
+                .ForMember(a=>a.EventName, bv=>bv.MapFrom(x=>x.Events1.Name))
+                .ForMember(a => a.GenderName, bv => bv.MapFrom(x => x.Gender.Name))
+                .ForMember(a => a.CategoryName, bv => bv.MapFrom(x => x.Categry.Name))
+                .ReverseMap();
             CreateMap<Opinion, OpinionDTO>().ReverseMap();
             CreateMap<Gender, GenderDTO>().ReverseMap();
             CreateMap<Events1, EventsDTO>().ReverseMap();

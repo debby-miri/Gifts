@@ -28,7 +28,7 @@ namespace Solid.API.Controllers
         {
             double Age2 = Age == null ? -1 : (double)Age;
             double ep = EstimatedPrice == null ? -1 : (double)EstimatedPrice;
-            return await _service.GetFilteredGifts(Age2, ep, Gender == null ? 0 : (int)Gender, Events == null ? 0 : (int)Events, Categry == null ? 0 : (int)Categry);
+            return await _service.GetFilteredGifts(Age2, ep, Gender == null ? 1 : (int)Gender, Events == null ? 1 : (int)Events, Categry == null ? 1 : (int)Categry);
         }
         // GET: api/<GiftController>
         [HttpGet]
@@ -51,6 +51,7 @@ namespace Solid.API.Controllers
         [HttpPost]
         public async Task<GiftDTO> Post([FromBody] GiftPostModel g)
         {
+
             var res = await _service.AddAsync(_mapper.Map<Gift>(g));
             return res;
         }

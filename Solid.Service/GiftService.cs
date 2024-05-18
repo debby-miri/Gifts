@@ -39,22 +39,11 @@ namespace Solid.Service
             return _mapper.Map<GiftDTO>(await _repository.GetByIdAsync(id));
         }
 
-        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0, int Gender1 = 0, int Events = 0, int Categry = 0)
+        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0, int Gender1 = 1, int Events = 1, int Categry = 1)
         {
-            List<GiftDTO> helping = new List<GiftDTO>();
-            List<GiftDTO> giftDTOs = new List<GiftDTO>();
-            var list = await GetListAsync();
-            foreach (var item in list)
-            {
-                giftDTOs.Add(_mapper.Map<GiftDTO>(item));
-            }
-            foreach (var item in giftDTOs)
-            {
-                if (/*item.EndingAge>=Age&&*/(Gender1 == 0||item.Gender.GenderId == Gender1 )&& (Events == 0 || Events == item.Events.EventsId) && (Categry == 0 || Categry == item.Categry.CategryId))
-                    helping.Add(item);
-            }
-            giftDTOs = helping;
-            helping = new List<GiftDTO>();
+
+            List<GiftDTO> giftDTOs = await GetListAsync();
+            giftDTOs = giftDTOs.Where(item => (Gender1 == 1 || item.GenderId == 1 || item.GenderId == Gender1) && (Events == 1 || item.EventsId == 1 || Events == item.EventsId) && (Categry == 1 || item.CategryId == 1 || Categry == item.CategryId)).ToList();
             double start = 0, end = 120;
             if (Age >= 0)
             {
@@ -62,89 +51,91 @@ namespace Solid.Service
                 {
                     start = 90;
                 }
-            }
-            else
-            {
-                if (Age >= 70)
-                {
-                    start = 70;
-                    end = 90;
-                }
+
                 else
                 {
-                    if (Age >= 40)
+                    if (Age >= 70)
                     {
-                        start = Math.Max(40, Age - 10);
-                        end = Math.Min(70, Age + 10);
+                        start = 70;
+                        end = 90;
                     }
                     else
                     {
-                        if (Age >= 30)
+                        if (Age >= 40)
                         {
-                            start = Age - 7.5;
-                            end = Age + 7.5;
+                            start = Math.Max(40, Age - 10);
+                            end = Math.Min(70, Age + 10);
                         }
                         else
                         {
-                            if (Age >= 20)
+                            if (Age >= 30)
                             {
-                                start = Age - 5;
-                                end = Age + 5;
+                                start = Age - 7.5;
+                                end = Age + 7.5;
                             }
-                            if (Age >= 15)
+                            else
                             {
-                                start = 15;
-                                end = 20;
-                            }
+                                if (Age >= 20)
+                                {
+                                    start = Age - 5;
+                                    end = Age + 5;
+                                }
+                                if (Age >= 15)
+                                {
+                                    start = 15;
+                                    end = 20;
+                                }
+                                else if (Age >= 10)
+                                {
+                                    start = Age - 2.5; end = Age + 4;
+                                }
+                                else
+                                {
+                                    if (Age >= 6)
+                                    {
+                                        start = Math.Max(Age - 2, 6);
+                                        end = Math.Min(11, Age + 3);
+                                    }
+                                    else
+                                    {
+                                        if (Age >= 3)
+                                        {
+                                            start = Age - 1;
+                                            end = Age + 1;
+                                        }
+                                        else
+                                        {
+                                            start = Age; end = Age;
+                                        }
+                                    }
+                                }
 
+                            }
                         }
                     }
                 }
             }
-            foreach (var item in giftDTOs)
-            {
-                if (item.EndingAge <= end && item.StartingAge >= start)
-                    helping.Add(item);
-            }
-
-            giftDTOs = helping;
-            helping = new List<GiftDTO>();
+            giftDTOs = giftDTOs.Where(item => item.EndingAge <= end && item.StartingAge >= start).ToList();
             double startPrice = 0, endPrice = 100000000;
             if (EstimatedPrice >= 0)
             {
                 startPrice = EstimatedPrice + Math.Min(EstimatedPrice, EstimatedPrice < 100 ? 30 : EstimatedPrice < 1000 ? EstimatedPrice * 0.22 : EstimatedPrice * 0.3);
                 endPrice = EstimatedPrice - startPrice + EstimatedPrice;
             }
-
-            foreach (var item in giftDTOs)
-            {
-                if (item.EstimatedPrice <= endPrice && item.EstimatedPrice >= startPrice)
-                    helping.Add(item);
-            }
+            ///////////////////////////////////////////////////////////////////////
+            giftDTOs = giftDTOs.Where(item => item.EstimatedPrice <= endPrice && item.EstimatedPrice >= startPrice).ToList();
             return giftDTOs;
         }
 
         public async Task<List<GiftDTO>> GetListAsync()
         {
-            var list = await _repository.GetListAsync();
-            List<GiftDTO> giftDTOs = new List<GiftDTO>();
-            foreach (var item in list)
-            {
-                giftDTOs.Add(_mapper.Map<GiftDTO>(item));
-            }
-            return giftDTOs;
+            return _mapper.Map<List<GiftDTO>>(await _repository.GetListAsync()); 
 
         }
 
         public async Task<List<OpinionDTO>> GetOpinionAsync(int giftId)
         {
-            var list = await _repository.GetOpinionAsync(giftId);
-            List<OpinionDTO> opDTOs = new List<OpinionDTO>();
-            foreach (var item in list)
-            {
-                opDTOs.Add(_mapper.Map<OpinionDTO>(item));
-            }
-            return opDTOs;
+            return _mapper.Map<List<OpinionDTO>>(await _repository.GetOpinionAsync(giftId));
         }
     }
 }

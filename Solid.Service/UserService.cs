@@ -40,44 +40,19 @@ namespace Solid.Service
         {
             return _mapper.Map<UserDTO>(await _repository.GetByIdAsync(id));
         }
-
-        public async Task<int> GetCountOfOpinionsAsync(int id)
+        //מחזיר מערך של חוות דעת כאשר הראשון זה החיובי והשני זה השלילי
+        public async Task<int[]> GetCountOfOpinionsAsync(int id)
         {
-            var gifts = await _repository.GetListOfGiftsAsync(id);
-            int count = 0;
-            foreach (var item in gifts)
-            {
-                if (item.OpinionsList != null)
-                    foreach (var op in item.OpinionsList)
-                    {
-                        if (!op.PositiveOpinion)
-                            count++;
-                    }
-
-            }
-            return count;
+           return new int[] { (await _repository.GetListOfGiftsAsync(id)).Sum(item => item.OpinionsList.Count(op => op.PositiveOpinion)), (await _repository.GetListOfGiftsAsync(id)).Sum(item => item.OpinionsList.Count(op => !op.PositiveOpinion)) };
         }
-
         public async Task<List<UserDTO>> GetListAsync()
         {
-            var list = await _repository.GetListAsync();
-            List<UserDTO> userDTOs = new List<UserDTO>();
-            foreach (var item in list)
-            {
-                userDTOs.Add(_mapper.Map<UserDTO>(item));
-            }
-            return userDTOs;
+            return _mapper.Map<List<UserDTO>>(await _repository.GetListAsync());
         }
 
         public async Task<List<GiftDTO>> GetListOfGiftsAsync(int id)
         {
-            var list = await _repository.GetListOfGiftsAsync(id);
-            List<GiftDTO> giftDTOs = new List<GiftDTO>();
-            foreach (var item in list)
-            {
-                giftDTOs.Add(_mapper.Map<GiftDTO>(item));
-            }
-            return giftDTOs;
+            return _mapper.Map<List<GiftDTO>>(await _repository.GetListOfGiftsAsync(id));
         }
 
         public async Task<UserDTO> UpdateAsync(int id, User user)

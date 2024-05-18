@@ -32,7 +32,7 @@ namespace Solid.API.Controllers
             return await _userService.GetListOfGiftsAsync(id);
         }
         [HttpGet("Opinions/{id}")]
-        public async Task<int> GetUserOpinions(int id)
+        public async Task<int[]> GetUserOpinions(int id)
         {
             return await _userService.GetCountOfOpinionsAsync(id);
         }
@@ -51,7 +51,7 @@ namespace Solid.API.Controllers
         //enter after there is an acount
         // POST api/<UserController>
         [HttpPost("signIn")]
-        public async Task<ActionResult<UserDTO>> SignIn([FromBody] UserPostModel user)
+        public async Task<ActionResult<UserDTO>> SignIn([FromBody] SignUpModel user)
         {
             if(!ModelState.IsValid)
                 return BadRequest();
@@ -83,7 +83,7 @@ namespace Solid.API.Controllers
         }
         //login
         [HttpPost("signUp")]
-        public async Task<ActionResult<UserDTO>> SignUp([FromBody] SignUpModel user)
+        public async Task<ActionResult<UserDTO>> SignUp([FromBody] UserPostModel user)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

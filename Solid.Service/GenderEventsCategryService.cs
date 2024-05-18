@@ -38,35 +38,17 @@ namespace Solid.Service
 
         public async Task<List<CategryDTO>> GetCategriesAsync()
         {
-            var list = await _repository.GetCategriesAsync();
-            List<CategryDTO> categryDTOs = new List<CategryDTO>();
-            foreach (var item in list)
-            {
-                categryDTOs.Add(_mapper.Map<CategryDTO>(item));
-            }
-            return categryDTOs;
+            return _mapper.Map<List<CategryDTO>>(await _repository.GetCategriesAsync());
         }
 
         public async Task<List<EventsDTO>> GetEvents1Async()
         {
-            var list = await _repository.GetEvents1Async();
-            List<EventsDTO> eventsDTOs = new List<EventsDTO>();
-            foreach (var item in list)
-            {
-                eventsDTOs.Add(_mapper.Map<EventsDTO>(item));
-            }
-            return eventsDTOs;
+            return _mapper.Map<List<EventsDTO>>(await _repository.GetEvents1Async());
         }
 
         public async Task<List<GenderDTO>> GetGendersAsync()
         {
-            var list = await _repository.GetGendersAsync();
-            List<GenderDTO> genderDTOs = new List<GenderDTO>();
-            foreach (var item in list)
-            {
-                genderDTOs.Add(_mapper.Map<GenderDTO>(item));
-            }
-            return genderDTOs;
+            return _mapper.Map<List<GenderDTO>>(await _repository.GetGendersAsync());
         }
     }
 }

@@ -31,14 +31,12 @@ namespace Solid.Data.Repository
 
         public async Task<Gift> GetByIdAsync(int id)
         {
-
-            var g = await _context.Gifts.FindAsync(id);
-            return g;
+           return (await GetListAsync()).FirstOrDefault(g=>g.GiftId == id);
         }
 
         public async Task<List<Gift>> GetListAsync()
         {
-            return await _context.Gifts.ToListAsync();        }
+            return await _context.Gifts.Include(g=>g.OpinionsList).ToListAsync();        }
 
         public async Task<List<Opinion>> GetOpinionAsync(int giftId)
         {
