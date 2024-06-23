@@ -122,9 +122,13 @@ namespace Solid.Service
             if (EstimatedPrice >= 0)
             {
                 double[,] arr = {
-                    { 0, 0.8, 0.75, 25 / 30, 30 / 40, 0.6, 5 / 6, 6 / 7, 5 / 8, 75 / 90 },
-                    { 0, 1.5, 1.25, 50 / 30, 1.5, 8 / 5, 7 / 6, 9 / 7, 10 / 8, 12 / 9 } };
-                int msb = EstimatedPrice.ToString()[0];
+                    { 0, 0.8, 0.75, 25 / 30F, 30 / 40F, 0.6, 5 / 6F, 6 / 7F, 5 / 8F, 75 / 90F },
+                    { 0, 1.5, 1.25, 50 / 30F, 1.5, 8 / 5F, 7 / 6F, 9 / 7F, 10 / 8F, 12 / 9F } };
+                int msb =(int) EstimatedPrice;
+                while (msb >= 10) msb /= 10;
+                
+                
+                //.ToString()[0];
                 startPrice = EstimatedPrice * arr[0,msb];
                 endPrice=EstimatedPrice * arr[1,msb];
                
