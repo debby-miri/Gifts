@@ -1,5 +1,6 @@
 ﻿using Gifts;
 using Microsoft.EntityFrameworkCore;
+using Solid.Core.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +15,13 @@ namespace Solid.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Gift> Gifts { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<Events1> Events11 { get; set; }
+        public DbSet<Categry> Categrys { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Gifts");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Gifts1");
         }
 
 

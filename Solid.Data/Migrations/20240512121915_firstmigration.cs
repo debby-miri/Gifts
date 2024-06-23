@@ -6,11 +6,50 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Solid.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationName : Migration
+    public partial class firstmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Categrys",
+                columns: table => new
+                {
+                    CategryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categrys", x => x.CategryId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events11",
+                columns: table => new
+                {
+                    EventsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events11", x => x.EventsId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genders",
+                columns: table => new
+                {
+                    GenderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genders", x => x.GenderId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -42,17 +81,35 @@ namespace Solid.Data.Migrations
                     StartingAge = table.Column<double>(type: "float", nullable: false),
                     EndingAge = table.Column<double>(type: "float", nullable: false),
                     EstimatedPrice = table.Column<double>(type: "float", nullable: false),
-                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    GenderId = table.Column<int>(type: "int", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfEntry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Events = table.Column<int>(type: "int", nullable: false),
-                    Categry = table.Column<int>(type: "int", nullable: false),
+                    EventsId = table.Column<int>(type: "int", nullable: false),
+                    CategryId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gifts", x => x.GiftId);
+                    table.ForeignKey(
+                        name: "FK_Gifts_Categrys_CategryId",
+                        column: x => x.CategryId,
+                        principalTable: "Categrys",
+                        principalColumn: "CategryId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Gifts_Events11_EventsId",
+                        column: x => x.EventsId,
+                        principalTable: "Events11",
+                        principalColumn: "EventsId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Gifts_Genders_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Genders",
+                        principalColumn: "GenderId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gifts_Users_UserId",
                         column: x => x.UserId,
@@ -83,6 +140,21 @@ namespace Solid.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Gifts_CategryId",
+                table: "Gifts",
+                column: "CategryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gifts_EventsId",
+                table: "Gifts",
+                column: "EventsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gifts_GenderId",
+                table: "Gifts",
+                column: "GenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Gifts_UserId",
                 table: "Gifts",
                 column: "UserId");
@@ -101,6 +173,15 @@ namespace Solid.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Gifts");
+
+            migrationBuilder.DropTable(
+                name: "Categrys");
+
+            migrationBuilder.DropTable(
+                name: "Events11");
+
+            migrationBuilder.DropTable(
+                name: "Genders");
 
             migrationBuilder.DropTable(
                 name: "Users");

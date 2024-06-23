@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gifts
+namespace Solid.Core.DTO
 {
-    public class Opinion
+    public class OpinionDTO
     {
-        [Key]
         public int OpinionId { get; set; }
         public string Description { get; set; }
         public bool PositiveOpinion { get; set; }
         public int GiftId { get; set; }
-        public Gift Gift { get; set; }
-
     }
 }
