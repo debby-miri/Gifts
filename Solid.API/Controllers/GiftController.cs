@@ -5,6 +5,7 @@ using Solid.API.PostModels;
 using Solid.Core.DTO;
 using Solid.Core.Entity;
 using Solid.Core.Services;
+using Solid.Service;
 using Swashbuckle.AspNetCore.Annotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -51,22 +52,24 @@ namespace Solid.API.Controllers
         [HttpPost]
         public async Task<GiftDTO> Post([FromBody] GiftPostModel g)
         {
-
-            var res = await _service.AddAsync(_mapper.Map<Gift>(g));
+            Gift gift = _mapper.Map<Gift>(g);
+            gift.DateOfEntry = DateTime.Now;
+            gift.NumberOfViews = 0;
+            var res = await _service.AddAsync(gift);
             return res;
         }
-        /*
-                // PUT api/<GiftController>/5
-                [HttpPut("{id}")]
-                public void Put(int id, [FromBody] string value)
-                {
-                }*/
-        // DELETE api/<GiftController>/5
+        [HttpPut("{id}")]
+        public async Task<GiftDTO> UpdateViews(int id)
+        {
+
+            var res = await _service.UpdateViews(id);
+            return res;
+        }
         [HttpDelete("{id}")]
         public async void Delete(int id)
         {
             await _service.DeleteAsync(id);
         }
     }
-    
+
 }

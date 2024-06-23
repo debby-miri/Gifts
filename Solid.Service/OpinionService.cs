@@ -17,7 +17,7 @@ namespace Solid.Service
         private readonly IUserService _userService;
         private readonly IGiftService _giftService;
         private readonly IMapper _mapper;
-        public OpinionService(IOpinionRepository repository, IMapper mapper, IUserService userService,IGiftService giftService)
+        public OpinionService(IOpinionRepository repository, IMapper mapper, IUserService userService, IGiftService giftService)
         {
             _repository = repository;
             _mapper = mapper;
@@ -27,18 +27,17 @@ namespace Solid.Service
         public async Task<OpinionDTO> AddOpinion(Opinion opinion)
         {
 
-            Opinion res= await _repository.AddOpinion(opinion);
-          GiftDTO gift=await _giftService.GetByIdAsync(res.GiftId);
+            Opinion res = await _repository.AddOpinion(opinion);
+            GiftDTO gift = await _giftService.GetByIdAsync(res.GiftId);
             int UserId = gift.UserId;
-            ///למחוק מתנה
-            int[] op =await _userService.GetCountOfOpinionsAsync(UserId);
+            int[] op = await _userService.GetCountOfOpinionsAsync(UserId);
             if (op[1] >= 10 && op[1] / op[0] > 0.4)
             {
                 Console.WriteLine(await _userService.BlockUser(UserId));
             }
             else
             {
-                if (op[1] >= 5 && op[1] / op[0]>0.25)
+                if (op[1] >= 5 && op[1] / op[0] > 0.25)
                 {
                     Console.WriteLine(await _userService.SuspendUser(UserId));
                 }

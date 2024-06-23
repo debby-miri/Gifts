@@ -16,7 +16,7 @@ namespace Solid.Core
         {
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<Gift, GiftDTO>()
-                .ForMember(a=>a.EventName, bv=>bv.MapFrom(x=>x.Events1.Name))
+                .ForMember(a=>a.EventName, bv=>bv.MapFrom(x=>x.Events.Name))
                 .ForMember(a => a.GenderName, bv => bv.MapFrom(x => x.Gender.Name))
                 .ForMember(a => a.CategoryName, bv => bv.MapFrom(x => x.Categry.Name))
                 .ReverseMap();

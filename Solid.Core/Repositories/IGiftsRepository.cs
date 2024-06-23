@@ -9,7 +9,7 @@ namespace Solid.Core.Repositories
 {
     public interface IGiftsRepository
     {
-
+        Task<Gift> UpdateViews(int id);
         Task<List<Gift>> GetListAsync();
         Task<List<Opinion>> GetOpinionAsync(int giftId);
         Task<Gift> GetByIdAsync(int id);

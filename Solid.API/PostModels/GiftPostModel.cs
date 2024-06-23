@@ -15,11 +15,11 @@ namespace Solid.API.PostModels
         public double StartingAge { get; set; }        
         public double EndingAge { get; set; }
         public double EstimatedPrice { get; set; }
-        public int Gender { get; set; }
+        public int GenderId { get; set; }
         public string Link { get; set; }
         public string ImageUrl { get; set; }
-        public int Events { get; set; }
-        public int Categry { get; set; }        
+        public int EventsId { get; set; }
+        public int CategryId { get; set; }        
         public int UserId { get; set; }
 
     }

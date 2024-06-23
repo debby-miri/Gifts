@@ -27,6 +27,7 @@ namespace Solid.Service
         }
         public async Task<UserDTO> SignUp(User user)
         {
+            if(user == null) { return null; }
             return _mapper.Map<UserDTO>(await _repository.SignUp(user));
         }
 

@@ -30,7 +30,7 @@ namespace Gifts
         public ICollection<Opinion> OpinionsList { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
-        public Events1 Events1 { get; set; }
+        public Events1 Events { get; set; }
         public Gender Gender { get; set; }
         public Categry Categry { get; set; }
 

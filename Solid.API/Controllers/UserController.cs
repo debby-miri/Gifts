@@ -101,8 +101,8 @@ namespace Solid.API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-            return await _userService.UpdateAsync(id,_mapper.Map<User>(user));
-
+            var res= await _userService.UpdateAsync(id,_mapper.Map<User>(user));
+            return res;
         }
 
         // DELETE api/<UserController>/5

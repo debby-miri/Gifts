@@ -42,5 +42,16 @@ namespace Solid.Data.Repository
         {
             return await _context.Opinions.Where(op => op.Gift.GiftId == giftId).ToListAsync();
         }
+
+        public async Task<Gift> UpdateViews(int id)
+        {
+            Gift gift = _context.Gifts.FirstOrDefault(x => x.GiftId == id);
+            if (gift != null)
+            {
+                gift.NumberOfViews++;
+            }
+            await _context.SaveChangesAsync();
+            return gift;
+        }
     }
 }

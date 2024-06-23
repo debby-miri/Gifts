@@ -11,6 +11,8 @@ namespace Solid.Core.Services
 {
     public interface IGiftService
     {
+        Task<GiftDTO> UpdateViews(int id);
+
         Task<List<GiftDTO>> GetListAsync();
         Task<GiftDTO> GetByIdAsync(int id);
         Task<List<OpinionDTO>> GetOpinionAsync(int giftId);

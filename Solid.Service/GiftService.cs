@@ -39,11 +39,14 @@ namespace Solid.Service
             return _mapper.Map<GiftDTO>(await _repository.GetByIdAsync(id));
         }
 
-        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0, int Gender1 = 1, int Events = 1, int Categry = 1)
+        public async Task<List<GiftDTO>> GetFilteredGifts(double Age = 0, double EstimatedPrice = 0,
+            int Gender1 = 1, int Events = 1, int Categry = 1)
         {
 
             List<GiftDTO> giftDTOs = await GetListAsync();
-            giftDTOs = giftDTOs.Where(item => (Gender1 == 1 || item.GenderId == 1 || item.GenderId == Gender1) && (Events == 1 || item.EventsId == 1 || Events == item.EventsId) && (Categry == 1 || item.CategryId == 1 || Categry == item.CategryId)).ToList();
+            giftDTOs = giftDTOs.Where(item => (Gender1 == 1 || item.GenderId == 1 ||
+            item.GenderId == Gender1) && (Events == 1 || item.EventsId == 1 || 
+            Events == item.EventsId) && (Categry == 1 || item.CategryId == 1 || Categry == item.CategryId)).ToList();
             double start = 0, end = 120;
             if (Age >= 0)
             {
@@ -97,8 +100,7 @@ namespace Solid.Service
                                         end = Math.Min(11, Age + 3);
                                     }
                                     else
-                                    {
-                                        if (Age >= 3)
+                                    {if (Age >= 3)
                                         {
                                             start = Age - 1;
                                             end = Age + 1;
@@ -116,26 +118,35 @@ namespace Solid.Service
                 }
             }
             giftDTOs = giftDTOs.Where(item => item.EndingAge <= end && item.StartingAge >= start).ToList();
-            double startPrice = 0, endPrice = 100000000;
+            double startPrice = 0, endPrice = double.MaxValue;
             if (EstimatedPrice >= 0)
             {
-                startPrice = EstimatedPrice + Math.Min(EstimatedPrice, EstimatedPrice < 100 ? 30 : EstimatedPrice < 1000 ? EstimatedPrice * 0.22 : EstimatedPrice * 0.3);
-                endPrice = EstimatedPrice - startPrice + EstimatedPrice;
+                double[,] arr = {
+                    { 0, 0.8, 0.75, 25 / 30, 30 / 40, 0.6, 5 / 6, 6 / 7, 5 / 8, 75 / 90 },
+                    { 0, 1.5, 1.25, 50 / 30, 1.5, 8 / 5, 7 / 6, 9 / 7, 10 / 8, 12 / 9 } };
+                int msb = EstimatedPrice.ToString()[0];
+                startPrice = EstimatedPrice * arr[0,msb];
+                endPrice=EstimatedPrice * arr[1,msb];
+               
             }
-            ///////////////////////////////////////////////////////////////////////
             giftDTOs = giftDTOs.Where(item => item.EstimatedPrice <= endPrice && item.EstimatedPrice >= startPrice).ToList();
             return giftDTOs;
         }
 
         public async Task<List<GiftDTO>> GetListAsync()
         {
-            return _mapper.Map<List<GiftDTO>>(await _repository.GetListAsync()); 
+            return _mapper.Map<List<GiftDTO>>(await _repository.GetListAsync());
 
         }
 
         public async Task<List<OpinionDTO>> GetOpinionAsync(int giftId)
         {
             return _mapper.Map<List<OpinionDTO>>(await _repository.GetOpinionAsync(giftId));
+        }
+
+        public async Task<GiftDTO> UpdateViews(int id)
+        {
+            return _mapper.Map<GiftDTO>(await _repository.UpdateViews(id));
         }
     }
 }
