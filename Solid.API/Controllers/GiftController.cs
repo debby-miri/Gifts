@@ -68,6 +68,7 @@ namespace Solid.API.Controllers
         [HttpDelete("{id}")]
         public async void Delete(int id)
         {
+
             await _service.DeleteAsync(id);
         }
     }

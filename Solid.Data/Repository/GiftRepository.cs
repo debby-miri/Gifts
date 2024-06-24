@@ -25,18 +25,23 @@ namespace Solid.Data.Repository
 
         public async Task DeleteAsync(int id)
         {
-            var g = await GetByIdAsync(id);
+            Gift g = _context.Gifts.FirstOrDefault(g => g.GiftId == id);
             _context.Gifts.Remove(g);
+            _context.SaveChanges();
         }
+        //0778841673
+        //9855
+        //73
 
         public async Task<Gift> GetByIdAsync(int id)
         {
-           return (await GetListAsync()).FirstOrDefault(g=>g.GiftId == id);
+            return (await GetListAsync()).FirstOrDefault(g => g.GiftId == id);
         }
 
         public async Task<List<Gift>> GetListAsync()
         {
-            return await _context.Gifts.Include(g=>g.OpinionsList).ToListAsync();        }
+            return await _context.Gifts.Include(g => g.OpinionsList).ToListAsync();
+        }
 
         public async Task<List<Opinion>> GetOpinionAsync(int giftId)
         {

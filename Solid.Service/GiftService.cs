@@ -31,6 +31,7 @@ namespace Solid.Service
 
         public async Task DeleteAsync(int id)
         {
+
             await _repository.DeleteAsync(id);
         }
 
