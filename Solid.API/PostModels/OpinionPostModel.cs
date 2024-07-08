@@ -5,5 +5,9 @@
         public string Description { get; set; }
         public bool PositiveOpinion { get; set; }
         public int GiftId { get; set; }
+
+
+
+
     }
 }

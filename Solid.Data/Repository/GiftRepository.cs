@@ -25,18 +25,23 @@ namespace Solid.Data.Repository
 
         public async Task DeleteAsync(int id)
         {
-            var g = await GetByIdAsync(id);
+            Gift g = _context.Gifts.FirstOrDefault(g => g.GiftId == id);
             _context.Gifts.Remove(g);
+            _context.SaveChanges();
         }
+        //0778841673
+        //9855
+        //73
 
         public async Task<Gift> GetByIdAsync(int id)
         {
-           return (await GetListAsync()).FirstOrDefault(g=>g.GiftId == id);
+            return (await GetListAsync()).FirstOrDefault(g => g.GiftId == id);
         }
 
         public async Task<List<Gift>> GetListAsync()
         {
-            return await _context.Gifts.Include(g=>g.OpinionsList).ToListAsync();        }
+            return await _context.Gifts.Include(g => g.OpinionsList).ToListAsync();
+        }
 
         public async Task<List<Opinion>> GetOpinionAsync(int giftId)
         {
@@ -49,6 +54,25 @@ namespace Solid.Data.Repository
             if (gift != null)
             {
                 gift.NumberOfViews++;
+            }
+            await _context.SaveChangesAsync();
+            return gift;
+        }
+        public async Task<Gift> UpdateGift(int id, Gift g)
+        {
+            Gift gift = _context.Gifts.FirstOrDefault(x => x.GiftId == id);
+            if (gift != null)
+            {
+                gift.Name = g.Name;
+                gift.Description = g.Description;
+                gift.EstimatedPrice = g.EstimatedPrice;
+                gift.ImageUrl = g.ImageUrl;
+                gift.StartingAge = g.StartingAge;
+                gift.EndingAge = g.EndingAge;
+                gift.CategryID = g.CategryID;
+                gift.GenderId = g.GenderId;
+                gift.Link = g.Link;
+                gift.EventsId = g.EventsId;
             }
             await _context.SaveChangesAsync();
             return gift;

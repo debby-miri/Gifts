@@ -16,5 +16,7 @@ namespace Solid.Core.Repositories
 
         Task DeleteAsync(int id);
         Task<Gift> AddAsync(Gift gift);
+        Task<Gift> UpdateGift(int id, Gift g);
+
     }
 }

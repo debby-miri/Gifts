@@ -20,5 +20,7 @@ namespace Solid.Core.Services
         Task DeleteAsync(int id);
         Task<GiftDTO> AddAsync(Gift gift);
         Task<List<GiftDTO>> GetFilteredGifts(double Age, double EstimatedPrice, int Gender, int Events, int Categry);
+        Task<GiftDTO> UpdateGift(int id, Gift g);
+
     }
 }

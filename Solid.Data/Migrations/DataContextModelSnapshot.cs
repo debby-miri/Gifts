@@ -75,6 +75,12 @@ namespace Solid.Data.Migrations
 
                     b.HasKey("GiftId");
 
+                    b.HasIndex("CategryID");
+
+                    b.HasIndex("EventsId");
+
+                    b.HasIndex("GenderId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Gifts");
@@ -197,11 +203,35 @@ namespace Solid.Data.Migrations
 
             modelBuilder.Entity("Gifts.Gift", b =>
                 {
+                    b.HasOne("Solid.Core.Entity.Categry", "Categry")
+                        .WithMany()
+                        .HasForeignKey("CategryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Solid.Core.Entity.Events1", "Events")
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Solid.Core.Entity.Gender", "Gender")
+                        .WithMany()
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Gifts.User", "User")
                         .WithMany("GiftsList")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Categry");
+
+                    b.Navigation("Events");
+
+                    b.Navigation("Gender");
 
                     b.Navigation("User");
                 });
