@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Solid.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class firstmigration : Migration
+    public partial class first : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,15 +86,15 @@ namespace Solid.Data.Migrations
                     DateOfEntry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventsId = table.Column<int>(type: "int", nullable: false),
-                    CategryId = table.Column<int>(type: "int", nullable: false),
+                    CategryID = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gifts", x => x.GiftId);
                     table.ForeignKey(
-                        name: "FK_Gifts_Categrys_CategryId",
-                        column: x => x.CategryId,
+                        name: "FK_Gifts_Categrys_CategryID",
+                        column: x => x.CategryID,
                         principalTable: "Categrys",
                         principalColumn: "CategryId",
                         onDelete: ReferentialAction.Cascade);
@@ -140,9 +140,9 @@ namespace Solid.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gifts_CategryId",
+                name: "IX_Gifts_CategryID",
                 table: "Gifts",
-                column: "CategryId");
+                column: "CategryID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gifts_EventsId",

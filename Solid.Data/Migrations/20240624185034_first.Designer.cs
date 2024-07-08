@@ -12,8 +12,8 @@ using Solid.Data;
 namespace Solid.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240512121915_firstmigration")]
-    partial class firstmigration
+    [Migration("20240624185034_first")]
+    partial class first
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,7 +33,7 @@ namespace Solid.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GiftId"));
 
-                    b.Property<int>("CategryId")
+                    b.Property<int>("CategryID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfEntry")
@@ -78,7 +78,7 @@ namespace Solid.Data.Migrations
 
                     b.HasKey("GiftId");
 
-                    b.HasIndex("CategryId");
+                    b.HasIndex("CategryID");
 
                     b.HasIndex("EventsId");
 
@@ -208,7 +208,7 @@ namespace Solid.Data.Migrations
                 {
                     b.HasOne("Solid.Core.Entity.Categry", "Categry")
                         .WithMany()
-                        .HasForeignKey("CategryId")
+                        .HasForeignKey("CategryID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -65,6 +65,13 @@ namespace Solid.API.Controllers
             var res = await _service.UpdateViews(id);
             return res;
         }
+        [HttpPut("update/{id}")]
+        public async Task<GiftDTO> UpdateGift(int id, [FromBody] GiftPostModel g)
+        {
+
+            var res = await _service.UpdateGift(id,_mapper.Map<Gift>( g));
+            return res;
+        }
         [HttpDelete("{id}")]
         public async void Delete(int id)
         {

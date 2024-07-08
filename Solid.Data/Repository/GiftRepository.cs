@@ -58,5 +58,24 @@ namespace Solid.Data.Repository
             await _context.SaveChangesAsync();
             return gift;
         }
+        public async Task<Gift> UpdateGift(int id, Gift g)
+        {
+            Gift gift = _context.Gifts.FirstOrDefault(x => x.GiftId == id);
+            if (gift != null)
+            {
+                gift.Name = g.Name;
+                gift.Description = g.Description;
+                gift.EstimatedPrice = g.EstimatedPrice;
+                gift.ImageUrl = g.ImageUrl;
+                gift.StartingAge = g.StartingAge;
+                gift.EndingAge = g.EndingAge;
+                gift.CategryID = g.CategryID;
+                gift.GenderId = g.GenderId;
+                gift.Link = g.Link;
+                gift.EventsId = g.EventsId;
+            }
+            await _context.SaveChangesAsync();
+            return gift;
+        }
     }
 }
